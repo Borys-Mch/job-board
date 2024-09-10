@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Link from "next/link";
 import Header from "./components/Header";
 
 const geistSans = localFont({
@@ -30,8 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <main className="py-4 px-6 max-w-2xl mx-auto">
         <Header />
         {children}
+        </main>
       </body>
     </html>
   );
