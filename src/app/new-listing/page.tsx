@@ -1,6 +1,8 @@
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { getUser } from "@workos-inc/authkit-nextjs"
 import { WorkOS } from "@workos-inc/node"
-import { createCompany } from "../actions/workosActions"
+import Link from "next/link"
 
 export default async function NewListingPage() {
 
@@ -8,12 +10,6 @@ export default async function NewListingPage() {
 
     const {user} = await getUser()
 
-    async function handleNewCompanyFormSubmit(data:FormData) {
-        'use server'
-        if (user) {
-            await createCompany(data.get('newCompanyName') as string, user.id)
-        }
-    }
 
     if (!user) {
         return (
@@ -35,25 +31,18 @@ export default async function NewListingPage() {
                 </pre>
                 <h2 className="text-lg mt-6">Your companies</h2>
                 <p className="text-gray-500 text-sm mb-2">Select a company to create a job add for</p>
+                
                 <div className="border border-blue-200 bg-blue-50 p-4 rounded-md">
                     No companies found assigned to your user
                 </div>
 
+                <Link 
+                    href={'/new-company'}
+                    className="inline-flex gap-2 items-center bg-gray-200 px-4 py-2 rounded-md mt-6">
+                    Create a new Company
+                    <FontAwesomeIcon className="h-4" icon={faArrowRight} />
+                </Link>
 
-                <h2 className="text-lg mt-6">Create a new company</h2>
-                <p className="text-gray-500 text-sm mb-2">To create a job listing your first need to register a company</p>
-                <form 
-                    action={handleNewCompanyFormSubmit} 
-                    className="flex gap-2">
-                    <input 
-                        name="newCompanyName"
-                        className="p-2 border border-gray-400 rounded-md" 
-                        type="text" 
-                        placeholder="company name" />
-                    <button type="submit" className="flex gap-2 items-center bg-gray-200 px-4 py-2 rounded-md">
-                        Create company
-                    </button>
-                </form>
             </div>
         </div>
     )
