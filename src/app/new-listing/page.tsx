@@ -23,18 +23,36 @@ export default async function NewListingPage() {
         userId: user?.id
     })
 
+    const activeOrganizationMemberships = organizationMemberships.data.filter(om => om.status === 'active')
+    const organizationsName:{[key: string]: string} = {}
+    for (const activeMembership of activeOrganizationMemberships) {
+        const organization = await workos.organizations.getOrganization(activeMembership.organizationId)
+        organizationsName[organization.id] = organization.name
+    }
+
     return (
         <div className="container">
             <div>
-                <pre>
-                    {JSON.stringify(organizationMemberships, null, 2)}
-                </pre>
                 <h2 className="text-lg mt-6">Your companies</h2>
                 <p className="text-gray-500 text-sm mb-2">Select a company to create a job add for</p>
-                
-                <div className="border border-blue-200 bg-blue-50 p-4 rounded-md">
-                    No companies found assigned to your user
+                <div>
+                    <div className="border inline-block rounded-md">
+                        {Object.keys(organizationsName).map(orgId => (
+                            // eslint-disable-next-line react/jsx-key
+                            <Link href={'/new-listing/' + orgId}
+                                className={"py-2 px-4 flex gap-2 items-center" + (Object.keys(organizationsName)[0] === orgId ? '' : 'border-t')}>
+                                {organizationsName[orgId]}
+                                <FontAwesomeIcon className="h-4" icon={faArrowRight} />
+                            </Link>
+                        ))}
+                    </div>
                 </div>
+
+                {organizationMemberships.data.length === 0 && (
+                    <div className="border border-blue-200 bg-blue-50 p-4 rounded-md">
+                        No companies found assigned to your user
+                    </div>
+                )}
 
                 <Link 
                     href={'/new-company'}
