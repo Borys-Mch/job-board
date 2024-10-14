@@ -1,5 +1,8 @@
+import JobForm from "@/app/components/JobForm";
 import { getUser } from "@workos-inc/authkit-nextjs"
 import { WorkOS } from "@workos-inc/node"
+
+
 
 type PageProps = {
     params: {
@@ -8,6 +11,7 @@ type PageProps = {
 }
 
 export default async function NewListingForOrgPage(props:PageProps) {
+
     const {user} = await getUser()
     const workos = new WorkOS(process.env.WORKOS_API_KEY)
     if (!user) {
@@ -23,10 +27,6 @@ export default async function NewListingForOrgPage(props:PageProps) {
 
 
     return (
-        <form 
-            action=''
-            className="container">
-            <input className="border p-2" placeholder="job title" type="text" />
-        </form>
+        <JobForm />
     )
 }
