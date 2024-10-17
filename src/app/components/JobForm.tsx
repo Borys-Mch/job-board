@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone, faStar, faUser } from "@fortawesome/free-solid-svg-icons";
+import ImageUpload from "./ImageUpload";
 
 export default function JobForm() {
 
@@ -80,26 +81,16 @@ export default function JobForm() {
             </div>
 
             <div className="flex">
-                <div className="w-1/2">
+                <div className="w-1/3">
                     <h3>Job icon</h3>
-                    <div className="bg-gray-100 size-24 inline-flex items-center justify-center rounded-md">
-                        <FontAwesomeIcon icon={faStar} className="text-gray-400" />
-                    </div>
-                    <div className="mt-2">
-                        <Button variant="soft">Upload</Button>
-                    </div>
+                    <ImageUpload icon={faStar} />
                 </div>
 
                 <div className="grow">
                     <h3>Contact person</h3>
                     <div className="flex gap-2">
                         <div>
-                            <div className="bg-gray-100 size-24 inline-flex items-center justify-center rounded-md">
-                            <FontAwesomeIcon icon={faUser} className="text-gray-400" />
-                            </div>
-                            <div className="mt-2">
-                                <Button variant="soft">Upload</Button>
-                            </div>
+                            <ImageUpload icon={faUser} />
                         </div>
                         <div className="grow flex flex-col gap-1">
                             <TextField.Root placeholder="Name" >
@@ -128,6 +119,7 @@ export default function JobForm() {
                     <span className="px-8">Save</span>
                 </Button>
             </div>
+
         </form>
     </Theme>
   )
