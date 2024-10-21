@@ -4,10 +4,11 @@ import { Button } from '@radix-ui/themes'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
-export default function ImageUpload({icon}:{icon:IconDefinition}) {
+export default function ImageUpload({name, icon}:{name:string;icon:IconDefinition}) {
     const fileInRef = useRef<HTMLInputElement>(null)
     const [file, setFile] = useState<File | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+    const [url, setUrl] = useState('')
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -35,7 +36,9 @@ export default function ImageUpload({icon}:{icon:IconDefinition}) {
         });
         const result = await response.json();
         console.log(result);
-        console.log(`/uploads/${file.name}`);
+        const data = new FormData();
+        data.set('file', `/${file?.name}`);
+        setUrl(`/${file?.name}`);
       }
 
 
@@ -50,9 +53,10 @@ export default function ImageUpload({icon}:{icon:IconDefinition}) {
             <FontAwesomeIcon icon={icon} className="text-gray-400" />
         )}
         </div>
+        <input type='hidden' value={url} name={name} />
         <div className="mt-2">
             <input 
-            onChange={handleFileChange}
+            onChange={ev => handleFileChange(ev)}
             ref={fileInRef} 
             type="file" 
             className='hidden'/>
