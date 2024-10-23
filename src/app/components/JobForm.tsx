@@ -108,20 +108,20 @@ export default function JobForm({orgId}: {orgId: string}) {
                     <h3>Contact person</h3>
                     <div className="flex gap-2">
                         <div>
-                            <ImageUpload name="photo" icon={faUser} />
+                            <ImageUpload name="contactPhoto" icon={faUser} />
                         </div>
                         <div className="grow flex flex-col gap-1">
-                            <TextField.Root placeholder="Name" name="name" >
+                            <TextField.Root placeholder="Name" name="contactName" >
                                 <TextField.Slot>
                                     <FontAwesomeIcon icon={faUser} />
                                 </TextField.Slot>
                             </TextField.Root>
-                            <TextField.Root placeholder="Phone" type="tel" name="phone" >
+                            <TextField.Root placeholder="Phone" type="tel" name="contactPhone" >
                                 <TextField.Slot>
                                     <FontAwesomeIcon icon={faPhone} />
                                 </TextField.Slot>
                             </TextField.Root>
-                            <TextField.Root placeholder="Email" type="email" name="email" >
+                            <TextField.Root placeholder="Email" type="email" name="contactEmail" >
                                 <TextField.Slot>
                                     <FontAwesomeIcon icon={faEnvelope} />
                                 </TextField.Slot>
